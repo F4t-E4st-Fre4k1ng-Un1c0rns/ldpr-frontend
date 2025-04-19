@@ -10,31 +10,31 @@ export const episodesList = signal<Episode[]>([
   {
     id: "e1",
     name: "To You, in 2000 Years: The Fall of Shiganshina, Part 1",
-    path: "/videos/attack-on-titan/s1/e1.mp4",
+    path: "https://s3.love-this.ru/hackaton/Phineas and Ferb - S01E01-E02 - Rollercoaster & Candace Loses Her Head (1080p WEB-DL x265 HEVC 10bit AAC 2.0 RCVR) [UTR].webm",
     season: "s1",
   },
   {
     id: "e2",
     name: "That Day: The Fall of Shiganshina, Part 2",
-    path: "/videos/attack-on-titan/s1/e2.mp4",
+    path: "https://s3.love-this.ru/hackaton/Phineas and Ferb - S01E01-E02 - Rollercoaster & Candace Loses Her Head (1080p WEB-DL x265 HEVC 10bit AAC 2.0 RCVR) [UTR].webm",
     season: "s1",
   },
   {
     id: "e3",
     name: "Beast Titan",
-    path: "/videos/attack-on-titan/s2/e1.mp4",
+    path: "https://s3.love-this.ru/hackaton/Phineas and Ferb - S01E01-E02 - Rollercoaster & Candace Loses Her Head (1080p WEB-DL x265 HEVC 10bit AAC 2.0 RCVR) [UTR].webm",
     season: "s2",
   },
   {
     id: "e4",
     name: "Rebirth",
-    path: "/videos/death-note/s1/e1.mp4",
+    path: "https://s3.love-this.ru/hackaton/Phineas and Ferb - S01E01-E02 - Rollercoaster & Candace Loses Her Head (1080p WEB-DL x265 HEVC 10bit AAC 2.0 RCVR) [UTR].webm",
     season: "s3",
   },
   {
     id: "e5",
     name: "The Alchemist of Steel",
-    path: "/videos/fma/s1/e1.mp4",
+    path: "https://s3.love-this.ru/hackaton/Phineas and Ferb - S01E01-E02 - Rollercoaster & Candace Loses Her Head (1080p WEB-DL x265 HEVC 10bit AAC 2.0 RCVR) [UTR].webm",
     season: "s4",
   },
 ]);

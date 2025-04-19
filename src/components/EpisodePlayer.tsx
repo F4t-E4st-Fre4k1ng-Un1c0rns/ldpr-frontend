@@ -9,7 +9,7 @@ export function EpisodePlayer({ episodes }: EpisodePlayerProps) {
   const [selectedEpisode, setSelectedEpisode] = useState<Episode | null>(null);
 
   return (
-    <div className="flex flex-col md:flex-row h-full gap-4">
+    <div className="flex flex-col md:flex-row gap-4">
       <ul className="w-full md:w-1/4 p-4 overflow-y-auto menu menu-lg bg-base-200 rounded-lg md:max-h-full max-h-50 flex-nowrap">
         {episodes.map((episode) => (
           <li key={episode.id}>
@@ -23,12 +23,12 @@ export function EpisodePlayer({ episodes }: EpisodePlayerProps) {
         ))}
       </ul>
 
-      <div className="w-full md:w-3/4 h-full">
+      <div className="w-full md:w-3/4 h-content">
         {selectedEpisode ? (
-          <div className="h-full bg-gray-200 rounded-lg overflow-hidden">
+          <div className="h-max bg-gray-200 rounded-lg overflow-hidden">
             <video
               autoPlay
-              className="w-full h-full object-contain"
+              className="w-full aspect-video object-contain"
               controls
               src={selectedEpisode.path}
             />
