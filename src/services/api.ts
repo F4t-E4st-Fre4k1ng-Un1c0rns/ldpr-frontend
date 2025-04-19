@@ -11,8 +11,8 @@ export const api = {
       }
       return response.json();
     },
-    getEpisodesInSeason: async (id: string): Promise<SeasonOutput> => {
-      const response = await fetch(`${API_BASE_URL}/anime/${id}`);
+    getSeasons: async (id: number): Promise<SeasonOutput> => {
+      const response = await fetch(`${API_BASE_URL}/season/${id}`);
       if (!response.ok) {
         throw new Error("Failed to fetch seasons");
       }

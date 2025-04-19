@@ -12,9 +12,9 @@ export function EpisodePlayer({ episodes }: EpisodePlayerProps) {
     <div className="flex flex-col md:flex-row gap-4">
       <ul className="w-full md:w-1/4 p-4 overflow-y-auto menu menu-lg bg-base-200 rounded-lg md:max-h-full max-h-50 flex-nowrap">
         {episodes.map((episode) => (
-          <li key={episode.id}>
+          <li key={episode.name}>
             <button
-              className={`w-full text-ellipsis line-clamp-1 ${selectedEpisode?.id === episode.id ? "menu-active" : ""}`}
+              className={`w-full text-ellipsis line-clamp-1 ${selectedEpisode?.name === episode.name ? "menu-active" : ""}`}
               onClick={() => setSelectedEpisode(episode)}
             >
               {episode.name}

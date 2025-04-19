@@ -2,7 +2,7 @@ import type { Season } from "@/types/Season";
 
 interface SeasonPaginationProps {
   readonly seasons: Season[];
-  readonly selectedSeason: string | null;
+  readonly selectedSeason: Season["id"] | null;
   readonly onSeasonChange: (seasonId: Season["id"]) => void;
 }
 

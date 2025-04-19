@@ -14,7 +14,6 @@ export default defineConfig({
     proxy: {
       "/api": {
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/u, ""),
         target: "https://api.love-this.ru",
       },
     },

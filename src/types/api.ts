@@ -1,4 +1,5 @@
 export interface AnimeInfo {
+  id: number;
   name: string;
   description: string;
   posterPath: string;
@@ -15,7 +16,7 @@ export interface SeasonInfo {
 }
 
 export interface SeasonOutput {
-  items: EpisodeInfo[];
+  items: (SeasonInfo & { episodes: EpisodeInfo[] })[];
 }
 
 export interface EpisodeInfo {

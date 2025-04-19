@@ -10,21 +10,21 @@ const mockAnimeList: Anime[] = [
   {
     description:
       "After his hometown is destroyed and his mother is killed, young Eren Jaeger vows to cleanse the earth of the giant humanoid Titans that have brought humanity to the brink of extinction.",
-    id: "1",
+    id: 1,
     image: "https://cdn.myanimelist.net/images/anime/10/47347.jpg",
     title: "Attack on Titan",
   },
   {
     description:
       "A high school student discovers a supernatural notebook that allows him to kill anyone by writing the victim's name while picturing their face.",
-    id: "2",
+    id: 2,
     image: "https://cdn.myanimelist.net/images/anime/9/9453.jpg",
     title: "Death Note",
   },
   {
     description:
       "Two brothers search for a Philosopher's Stone after an attempt to revive their deceased mother goes awry and leaves them in damaged physical forms.",
-    id: "3",
+    id: 3,
     image: "https://cdn.myanimelist.net/images/anime/10/47347.jpg",
     title: "Fullmetal Alchemist: Brotherhood",
   },
@@ -41,7 +41,7 @@ export const fetchAnimeList = async () => {
     const response = await api.anime.getAll();
     animeList.value = response.items.map((item) => ({
       description: item.description,
-      id: item.name.toString(),
+      id: item.id,
       image: item.posterPath,
       title: item.name,
     }));
@@ -55,12 +55,14 @@ export class AnimeNotFoundError extends DisplayError {
   }
 }
 
-export const getAnimeById = async (id: string): Promise<Anime> => {
+export const getAnimeById = async (id: Anime["id"]): Promise<Anime> => {
   if (!animeList.value.length) {
     await fetchAnimeList();
   }
 
-  const anime = animeList.value.find((anime) => anime.id === id);
+  const anime = animeList.value.find(
+    (anime) => anime.id.toString() === id.toString(),
+  );
 
   if (!anime) {
     throw new AnimeNotFoundError();

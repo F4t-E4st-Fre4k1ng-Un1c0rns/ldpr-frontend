@@ -1,6 +1,9 @@
+import { Season } from "./Season";
+
 export interface Anime {
-  id: string;
+  id: number;
   title: string;
   description: string;
   image: string;
+  seasons?: Season[];
 }

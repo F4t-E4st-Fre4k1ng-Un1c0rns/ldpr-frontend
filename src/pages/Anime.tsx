@@ -7,16 +7,16 @@ import ErrorDisplay from "@/components/ErrorDisplay";
 import type { Season } from "@/types/Season";
 import { SeasonPagination } from "@/components/SeasonPagination";
 import { getAnimeById } from "@/store/anime";
-import { getEpisodesBySeasonId } from "@/store/episodes";
 import { getSeasonsByAnimeId } from "@/store/seasons";
 
-const Anime = ({ id }: { readonly id: string }) => {
+const Anime = ({ id }: { readonly id: number }) => {
   const [anime, setAnime] = useState<Anime | null>(null);
   const [seasons, setSeasons] = useState<Season[]>([]);
   const [episodes, setEpisodes] = useState<Episode[]>([]);
-  const [selectedSeasonId, setSelectedSeasonId] = useState<string | null>(null);
+  const [selectedSeasonId, setSelectedSeasonId] = useState<Season["id"] | null>(
+    null,
+  );
   const [loading, setLoading] = useState(true);
-  const [loadingEpisodes, setLoadingEpisodes] = useState(false);
   const [error, setError] = useState<DisplayError | null>(null);
   const [seasonsError, setSeasonsError] = useState<DisplayError | null>(null);
   const [episodesError, setEpisodesError] = useState<DisplayError | null>(null);
@@ -50,21 +50,13 @@ const Anime = ({ id }: { readonly id: string }) => {
   useEffect(() => {
     if (!selectedSeasonId) return;
 
-    setLoadingEpisodes(true);
     setEpisodesError(null);
-    getEpisodesBySeasonId(selectedSeasonId)
-      .then((episodesData) => {
-        setEpisodes(episodesData);
-      })
-      .catch((err) => {
-        setEpisodesError(err);
-      })
-      .finally(() => {
-        setLoadingEpisodes(false);
-      });
+    setEpisodes(
+      seasons.find((season) => season.id === selectedSeasonId)?.episodes ?? [],
+    );
   }, [selectedSeasonId]);
 
-  const handleSeasonChange = (seasonId: string) => {
+  const handleSeasonChange = (seasonId: number) => {
     setSelectedSeasonId(seasonId);
   };
 
@@ -112,14 +104,7 @@ const Anime = ({ id }: { readonly id: string }) => {
         </div>
       ) : null}
 
-      {loadingEpisodes ? (
-        <div className="h-[600px] flex flex-col md:flex-row gap-4">
-          <div className="skeleton h-full -full md:w-1/4"></div>
-          <div className="w-full md:w-3/4 h-full">
-            <div className="skeleton h-full w-full"></div>
-          </div>
-        </div>
-      ) : episodesError ? (
+      {episodesError ? (
         <ErrorDisplay error={episodesError} />
       ) : episodes.length > 0 ? (
         <div className="h-[600px]">
