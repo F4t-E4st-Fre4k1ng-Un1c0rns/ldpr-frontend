@@ -5,8 +5,10 @@ export interface ErrorDisplayProps {
 }
 
 const ErrorDisplay = ({ error }: ErrorDisplayProps) => {
-  const emoji = ERROR_EMOJIS[error.type];
+  const emoji = ERROR_EMOJIS[error.type ?? 499];
   const errorMessage = error instanceof Error ? error.message : error;
+
+  console.error(error);
 
   return (
     <div className="container mx-auto p-4 w-100 max-w-ww">

@@ -1,9 +1,12 @@
 import { Anime } from "@/types/Anime";
 import { DisplayError } from "@/types/ErrorDisplay";
+import { api } from "../services/api";
 import { signal } from "@preact/signals";
 
+const useMockData = import.meta.env.VITE_USE_MOCK_DATA === "true";
+
 // Mock anime data
-export const animeList = signal<Anime[]>([
+const mockAnimeList: Anime[] = [
   {
     description:
       "After his hometown is destroyed and his mother is killed, young Eren Jaeger vows to cleanse the earth of the giant humanoid Titans that have brought humanity to the brink of extinction.",
@@ -25,7 +28,26 @@ export const animeList = signal<Anime[]>([
     image: "https://cdn.myanimelist.net/images/anime/10/47347.jpg",
     title: "Fullmetal Alchemist: Brotherhood",
   },
-]);
+];
+
+export const animeList = signal<Anime[]>([]);
+
+export const fetchAnimeList = async () => {
+  if (useMockData) {
+    // Simulate network delay
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    animeList.value = mockAnimeList;
+  } else {
+    const response = await api.anime.getAll();
+    animeList.value = response.items.map((item) => ({
+      description: item.description,
+      id: item.name.toString(),
+      image: item.posterPath,
+      title: item.name,
+    }));
+  }
+  return animeList.value;
+};
 
 export class AnimeNotFoundError extends DisplayError {
   constructor() {
@@ -34,8 +56,9 @@ export class AnimeNotFoundError extends DisplayError {
 }
 
 export const getAnimeById = async (id: string): Promise<Anime> => {
-  // Simulate network delay
-  await new Promise((resolve) => setTimeout(resolve, 500));
+  if (!animeList.value.length) {
+    await fetchAnimeList();
+  }
 
   const anime = animeList.value.find((anime) => anime.id === id);
 

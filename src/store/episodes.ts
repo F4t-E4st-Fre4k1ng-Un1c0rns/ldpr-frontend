@@ -1,6 +1,9 @@
 import { Episode } from "@/types/Episode";
 import { ErrorType } from "@/types/ErrorDisplay";
+import { api } from "@/services/api";
 import { signal } from "@preact/signals";
+
+const useMockData = import.meta.env.VITE_USE_MOCK_DATA === "true";
 
 // Mock episodes data
 export const episodesList = signal<Episode[]>([
@@ -51,32 +54,29 @@ export class NoEpisodesForSeasonError extends Error {
   readonly type: ErrorType = 404;
 }
 
-export const getEpisodeById = async (id: string): Promise<Episode> => {
-  // Simulate network delay
-  await new Promise((resolve) => setTimeout(resolve, 500));
-
-  const episode = episodesList.value.find((episode) => episode.id === id);
-
-  if (!episode) {
-    throw new EpisodeNotFoundError();
-  }
-
-  return episode;
-};
-
 export const getEpisodesBySeasonId = async (
   seasonId: string,
 ): Promise<Episode[]> => {
-  // Simulate network delay
-  await new Promise((resolve) => setTimeout(resolve, 500));
+  if (useMockData) {
+    // Simulate network delay
+    await new Promise((resolve) => setTimeout(resolve, 500));
 
-  const episodes = episodesList.value.filter(
-    (episode) => episode.season === seasonId,
-  );
+    const episodes = episodesList.value.filter(
+      (episode) => episode.season === seasonId,
+    );
 
-  if (episodes.length === 0) {
-    throw new NoEpisodesForSeasonError();
+    if (episodes.length === 0) {
+      throw new NoEpisodesForSeasonError();
+    }
+
+    return episodes;
+  } else {
+    const response = await api.anime.getEpisodesInSeason(seasonId);
+    return response.items.map((item) => ({
+      id: item.path,
+      name: item.name,
+      path: item.path,
+      season: seasonId,
+    }));
   }
-
-  return episodes;
 };
