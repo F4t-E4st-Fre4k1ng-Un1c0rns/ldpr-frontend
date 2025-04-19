@@ -105,6 +105,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.MINIO_SECRET_KEY }}
           AWS_S3_ENDPOINT: ${{ env.MINIO_ENDPOINT }}
           SOURCE_DIR: 'dist'
+          DEST_DIR: 'dist'
 
   deploy-storybook:
     name: 📚 Deploy Storybook
