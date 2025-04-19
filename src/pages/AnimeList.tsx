@@ -32,7 +32,7 @@ const AnimeList = () => {
       <div className="container mx-auto p-4">
         <h2 className="text-3xl font-bold mb-4">Популярное</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {Array(6).map((__, index) => (
+          {[...Array(6)].map((__, index) => (
             <div
               className="card card-side bg-base-200 shadow-xl max-h-50"
               key={index}
