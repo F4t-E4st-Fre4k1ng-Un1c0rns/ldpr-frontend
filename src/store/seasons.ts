@@ -5,22 +5,22 @@ import { signal } from "@preact/signals";
 // Mock seasons data
 export const seasonsList = signal<Season[]>([
   {
-    anime: "a1",
+    anime: "1",
     id: "s1",
     number: 1,
   },
   {
-    anime: "a1",
+    anime: "1",
     id: "s2",
     number: 2,
   },
   {
-    anime: "a2",
+    anime: "2",
     id: "s3",
     number: 1,
   },
   {
-    anime: "a3",
+    anime: "3",
     id: "s4",
     number: 1,
   },

@@ -2,11 +2,13 @@ import type { Season } from "@/types/Season";
 
 interface SeasonPaginationProps {
   readonly seasons: Season[];
+  readonly selectedSeason: string | null;
   readonly onSeasonChange: (seasonId: Season["id"]) => void;
 }
 
 export function SeasonPagination({
   seasons,
+  selectedSeason,
   onSeasonChange,
 }: SeasonPaginationProps) {
   return (
@@ -16,6 +18,7 @@ export function SeasonPagination({
         {seasons.map((season) => (
           <input
             aria-label={`${season.number}`}
+            checked={season.id === selectedSeason}
             className="join-item btn btn-md"
             key={season.id}
             name="season-radio"
