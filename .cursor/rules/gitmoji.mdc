@@ -1,0 +1,62 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Use the Conventional Commits specification, but replace the <type> prefix with a Unicode emoji from gitmoji.dev
+
+The commit message should be structured as follows:
+
+<emoji>[optional scope]: <description>
+
+[optional body]
+
+[optional footer(s)]
+
+The commit contains the following semantic elements, communicated via emoji:
+
+✨ — feat: introduces a new feature (MINOR bump)
+
+🐛 — fix: patches a bug (PATCH bump)
+
+📝 — docs: documentation only changes
+
+🎨 — style: formatting, missing semicolons, etc. (no code change)
+
+🔨 — refactor: code change that neither fixes a bug nor adds a feature
+
+⚡️ — perf: code change that improves performance
+
+✅ — test: adding or fixing tests
+
+📦 — build: changes that affect the build system or external dependencies
+
+🤖 — ci: CI configuration and scripts
+
+🚀 — chore: other changes that don’t modify src or test files
+
+⏪️ — revert: reverts a previous commit
+
+Breaking changes must be indicated by appending a ! before the colon or by adding a BREAKING CHANGE: footer.
+
+Specification Details
+
+Terms like “MUST”, “SHOULD”, etc., follow [RFC 2119].
+
+Commits MUST begin with one of the Unicode emojis listed above, optionally followed by a scope in () and then a colon + space.
+
+A concise description MUST follow immediately after the prefix.
+
+A more detailed body MAY follow after one blank line.
+
+One or more footers MAY follow after a blank line, each using <token>: <value> syntax (e.g. ISSUES-1234: closes).
+
+Breaking changes MUST be denoted by adding ! to the prefix (e.g. ✨!:) or by including a BREAKING CHANGE: footer with details.
+
+Example
+
+✨(auth): add support for OAuth login
+
+Implement full OAuth2 flow including token refresh and session management.
+
+BREAKING CHANGE: authentication endpoints now require OAuth tokens instead of API keys
