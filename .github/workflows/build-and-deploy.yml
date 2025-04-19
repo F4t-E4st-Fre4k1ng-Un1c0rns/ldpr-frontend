@@ -4,11 +4,6 @@ on:
   push:
     branches: [ main ]
 
-env:
-  MINIO_ENDPOINT: your-minio-endpoint
-  MINIO_BUCKET: your-bucket-name
-  MINIO_FOLDER: dist
-
 jobs:
   lint:
     name: 🚦 Lint
