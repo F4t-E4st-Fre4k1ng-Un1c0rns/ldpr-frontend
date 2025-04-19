@@ -10,7 +10,7 @@ export function EpisodePlayer({ episodes }: EpisodePlayerProps) {
 
   return (
     <div className="flex flex-col md:flex-row h-full gap-4">
-      <ul className="w-full md:w-1/4 p-4 overflow-y-auto menu menu-lg bg-base-200 rounded-lg max-h-full">
+      <ul className="w-full md:w-1/4 p-4 overflow-y-auto menu menu-lg bg-base-200 rounded-lg md:max-h-full max-h-50 flex-nowrap">
         {episodes.map((episode) => (
           <li key={episode.id}>
             <button
