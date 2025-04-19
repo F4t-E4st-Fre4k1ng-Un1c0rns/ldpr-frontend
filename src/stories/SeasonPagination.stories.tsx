@@ -48,10 +48,10 @@ export const SingleSeason: Story = {
 export const ManySeasons: Story = {
   args: {
     onSeasonChange: action("seasonChanged"),
-    seasons: Array.from({ length: 10 }, (_, i) => ({
+    seasons: Array.from({ length: 10 }, (__, id) => ({
       anime: "1",
-      id: String(i + 1),
-      number: i + 1,
+      id: String(id + 1),
+      number: id + 1,
     })),
   },
 };
