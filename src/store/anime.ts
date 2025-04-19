@@ -1,4 +1,5 @@
 import { Anime } from "@/types/Anime";
+import { DisplayError } from "@/types/ErrorDisplay";
 import { signal } from "@preact/signals";
 
 // Mock anime data
@@ -26,10 +27,9 @@ export const animeList = signal<Anime[]>([
   },
 ]);
 
-export class AnimeNotFoundError extends Error {
-  constructor(id: string) {
-    super(`Anime with id ${id} not found`);
-    this.name = "AnimeNotFoundError";
+export class AnimeNotFoundError extends DisplayError {
+  constructor() {
+    super(`Аниме не найдено`, 404);
   }
 }
 
@@ -40,7 +40,7 @@ export const getAnimeById = async (id: string): Promise<Anime> => {
   const anime = animeList.value.find((anime) => anime.id === id);
 
   if (!anime) {
-    throw new AnimeNotFoundError(id);
+    throw new AnimeNotFoundError();
   }
 
   return anime;

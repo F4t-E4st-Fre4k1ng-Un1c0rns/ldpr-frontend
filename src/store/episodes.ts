@@ -1,4 +1,5 @@
 import { Episode } from "@/types/Episode";
+import { ErrorType } from "@/types/ErrorDisplay";
 import { signal } from "@preact/signals";
 
 // Mock episodes data
@@ -31,17 +32,18 @@ export const episodesList = signal<Episode[]>([
 ]);
 
 export class EpisodeNotFoundError extends Error {
-  constructor(id: string) {
-    super(`Episode with id ${id} not found`);
-    this.name = "EpisodeNotFoundError";
+  constructor() {
+    super(`Такого эпизода не существует`);
   }
+  readonly type: ErrorType = 404;
 }
 
 export class NoEpisodesForSeasonError extends Error {
-  constructor(seasonId: string) {
-    super(`No episodes found for season with id ${seasonId}`);
+  constructor() {
+    super(`У этого сезона нет эпизодов`);
     this.name = "NoEpisodesForSeasonError";
   }
+  readonly type: ErrorType = 404;
 }
 
 export const getEpisodeById = async (id: string): Promise<Episode> => {
@@ -51,7 +53,7 @@ export const getEpisodeById = async (id: string): Promise<Episode> => {
   const episode = episodesList.value.find((episode) => episode.id === id);
 
   if (!episode) {
-    throw new EpisodeNotFoundError(id);
+    throw new EpisodeNotFoundError();
   }
 
   return episode;
@@ -68,7 +70,7 @@ export const getEpisodesBySeasonId = async (
   );
 
   if (episodes.length === 0) {
-    throw new NoEpisodesForSeasonError(seasonId);
+    throw new NoEpisodesForSeasonError();
   }
 
   return episodes;

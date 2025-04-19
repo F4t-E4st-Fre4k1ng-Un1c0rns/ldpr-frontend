@@ -1,35 +1,32 @@
 import { useEffect, useState } from "preact/hooks";
 import type { Anime } from "@/types/Anime";
+import { DisplayError } from "@/types/ErrorDisplay";
+import ErrorDisplay from "@/components/ErrorDisplay";
 import { getAnimeById } from "@/store/anime";
 
 const Anime = ({ id }: { readonly id: string }) => {
   const [anime, setAnime] = useState<Anime | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<DisplayError | null>(null);
 
   useEffect(() => {
     if (!id) {
       setLoading(false);
+      setError(new DisplayError("Нужен ID", 404));
       return;
     }
 
-    const fetchAnime = async () => {
-      try {
-        const data = await getAnimeById(id);
+    getAnimeById(id)
+      .then((data) => {
         setAnime(data);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to load anime");
-      } finally {
+      })
+      .catch((err) => {
+        setError(err);
+      })
+      .finally(() => {
         setLoading(false);
-      }
-    };
-
-    fetchAnime();
+      });
   }, [id]);
-
-  if (!id) {
-    return <div>Anime ID is required</div>;
-  }
 
   if (loading) {
     return (
@@ -42,17 +39,11 @@ const Anime = ({ id }: { readonly id: string }) => {
   }
 
   if (error) {
-    return (
-      <div className="container mx-auto p-4">
-        <div className="alert alert-error">
-          <span>{error}</span>
-        </div>
-      </div>
-    );
+    return <ErrorDisplay error={error} />;
   }
 
   if (!anime) {
-    return <div>Anime not found</div>;
+    return <ErrorDisplay error={new DisplayError("Аниме не найдено", 404)} />;
   }
 
   return (

@@ -1,3 +1,4 @@
+import { DisplayError } from "@/types/ErrorDisplay";
 import { Season } from "@/types/Season";
 import { signal } from "@preact/signals";
 
@@ -25,17 +26,15 @@ export const seasonsList = signal<Season[]>([
   },
 ]);
 
-export class SeasonNotFoundError extends Error {
-  constructor(id: string) {
-    super(`Season with id ${id} not found`);
-    this.name = "SeasonNotFoundError";
+export class SeasonNotFoundError extends DisplayError {
+  constructor() {
+    super(`Такого сезона не существует`, 404);
   }
 }
 
-export class NoSeasonsForAnimeError extends Error {
-  constructor(animeId: string) {
-    super(`No seasons found for anime with id ${animeId}`);
-    this.name = "NoSeasonsForAnimeError";
+export class NoSeasonsForAnimeError extends DisplayError {
+  constructor() {
+    super(`У этого аниме нет сезонов`, 404);
   }
 }
 
@@ -44,7 +43,7 @@ export const getSeasonById = async (id: string): Promise<Season> => {
   await new Promise((resolve) => setTimeout(resolve, 500));
   const season = seasonsList.value.find((season) => season.id === id);
   if (!season) {
-    throw new SeasonNotFoundError(id);
+    throw new SeasonNotFoundError();
   }
   return season;
 };
@@ -58,7 +57,7 @@ export const getSeasonsByAnimeId = async (
     (season) => season.anime === animeId,
   );
   if (seasons.length === 0) {
-    throw new NoSeasonsForAnimeError(animeId);
+    throw new NoSeasonsForAnimeError();
   }
   return seasons;
 };
