@@ -1,0 +1,10 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+# Package manager
+
+- This project uses bun as package manager and runtime
+- This project uses preact, not react
