@@ -104,7 +104,7 @@ jobs:
           AWS_S3_BUCKET: ${{ env.MINIO_BUCKET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.MINIO_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.MINIO_SECRET_KEY }}
-          AWS_ENDPOINT_URL: ${{ env.MINIO_ENDPOINT }}
+          AWS_S3_ENDPOINT: ${{ env.MINIO_ENDPOINT }}
           SOURCE_DIR: 'dist'
 
   deploy-storybook:
