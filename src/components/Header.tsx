@@ -15,13 +15,7 @@ const Header = () => {
             <li>
               {/* @ts-expect-error seems like error in preact-router types */}
               <Link className="btn btn-ghost" href="/">
-                Home
-              </Link>
-            </li>
-            <li>
-              {/* @ts-expect-error seems like error in preact-router types */}
-              <Link className="btn btn-ghost" href="/anime">
-                Anime List
+                Популярное
               </Link>
             </li>
           </ul>
