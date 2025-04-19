@@ -4,6 +4,10 @@ on:
   push:
     branches: [ main ]
 
+env:
+  MINIO_ENDPOINT: https://s3.love-this.ru/
+  MINIO_BUCKET: hackaton
+
 jobs:
   lint:
     name: 🚦 Lint
